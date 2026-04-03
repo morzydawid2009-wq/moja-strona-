@@ -239,6 +239,8 @@ button:hover {
     </div>
 
     <div>
+        <button id="langBtn" onclick="toggleLang()">RU</button>
+
         <button class="discord" onclick="window.open('https://discord.gg/uBkNEQKHX')">
             DISCORD
         </button>
@@ -247,14 +249,14 @@ button:hover {
 
 <div id="home" class="page home-page showing">
     <div class="panel">
-        <h1>CS2 PREMIUM CHEATS</h1>
-        <p>UNDETECTED • SMOOTH • HIGH PERFORMANCE</p>
-        <p style="color:#00ff88;">● STATUS: UNDETECTED</p>
+        <h1>CS2 ПРЕМИУМ ЧИТЫ</h1>
+        <p>НЕОБНАРУЖИМЫЕ • ПЛАВНЫЕ • ВЫСОКАЯ ПРОИЗВОДИТЕЛЬНОСТЬ</p>
+        <p style="color:#00ff88;">● СТАТУС: НЕ ОБНАРУЖЕНЫ</p>
     </div>
 </div>
 
 <div id="store" class="page store-page">
-    <h1>OUR PRODUCTS</h1>
+    <h1>НАШИ ПРОДУКТЫ</h1>
 
     <div class="container">
         <div class="card">
@@ -345,6 +347,26 @@ function closeBuy() {
 
 function buyNow() {
     alert("Purchase successful (fake)");
+}
+
+// LANGUAGE TOGGLE
+let currentLang = "ru";
+
+function toggleLang() {
+    currentLang = currentLang === "ru" ? "en" : "ru";
+    document.getElementById("langBtn").innerText = currentLang.toUpperCase();
+
+    if (currentLang === "en") {
+        document.querySelector("#home h1").innerText = "CS2 PREMIUM CHEATS";
+        document.querySelector("#home p").innerText = "UNDETECTED • SMOOTH • HIGH PERFORMANCE";
+        document.querySelector("#home p:nth-of-type(2)").innerText = "● STATUS: UNDETECTED";
+        document.querySelector("#store h1").innerText = "OUR PRODUCTS";
+    } else {
+        document.querySelector("#home h1").innerText = "CS2 ПРЕМИУМ ЧИТЫ";
+        document.querySelector("#home p").innerText = "НЕОБНАРУЖИМЫЕ • ПЛАВНЫЕ • ВЫСОКАЯ ПРОИЗВОДИТЕЛЬНОСТЬ";
+        document.querySelector("#home p:nth-of-type(2)").innerText = "● СТАТУС: НЕ ОБНАРУЖЕНЫ";
+        document.querySelector("#store h1").innerText = "НАШИ ПРОДУКТЫ";
+    }
 }
 </script>
 
