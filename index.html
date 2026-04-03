@@ -117,7 +117,7 @@ button:hover {
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.page.active {
+.page.showing {
     opacity: 1;
     transform: translateX(0);
     pointer-events: auto;
@@ -207,7 +207,7 @@ button:hover {
     </div>
 </nav>
 
-<div id="home" class="page home-page active">
+<div id="home" class="page home-page showing">
     <div class="panel">
         <h1>CS2 PREMIUM CHEATS</h1>
         <p>UNDETECTED • SMOOTH • HIGH PERFORMANCE</p>
@@ -253,18 +253,13 @@ button:hover {
 <script>
 function showPage(pageId) {
     const pages = document.querySelectorAll('.page');
-
-    // Ukryj wszystkie aktywne strony
     pages.forEach(p => {
-        if (p.classList.contains('active')) {
-            p.classList.remove('active');
+        if (p.id === pageId) {
+            p.classList.add('showing');
+        } else {
+            p.classList.remove('showing');
         }
     });
-
-    // Pokaż nową stronę z małym delayem dla płynności
-    setTimeout(() => {
-        document.getElementById(pageId).classList.add('active');
-    }, 50);
 }
 
 function openBuy(name, price) {
