@@ -134,6 +134,22 @@ button:hover {
 
 .home-page .panel {
     margin: 0;
+    text-align: center;
+}
+
+/* Logo GameSense */
+.home-page .panel img {
+    max-width: 180px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* STORE */
@@ -247,6 +263,8 @@ button:hover {
 
 <div id="home" class="page home-page showing">
     <div class="panel">
+        <!-- LOGO GameSense -->
+        <img src="https://gamesense.gg/cdn/shop/files/gamesense-logo_PNG_9316ec1d-7a16-4f57-ad96-e8c1d1a67711_1200x1200.png?v=1631953877" alt="GameSense Logo">
         <h1>CS2 PREMIUM CHEATS</h1>
         <p>UNDETECTED • SMOOTH • HIGH PERFORMANCE</p>
         <p style="color:#00ff88;">● STATUS: UNDETECTED</p>
@@ -299,7 +317,7 @@ document.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
 
-    // Poprawne ukrywanie kursora na buttonach i linkach
+    // Pokazuje normalny kursor na przyciskach i linkach
     const el = document.elementFromPoint(e.clientX, e.clientY);
     if(el && el.closest('button, a')) {
         cursor.style.display = 'none';
