@@ -3,64 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Store</title>
+<title>Premium Store</title>
 
 <style>
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-    background: #0d0d0d;
+    background: radial-gradient(circle at top, #111, #050505);
     color: white;
+    scroll-behavior: smooth;
 }
 
-/* HEADER */
-header {
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    background: rgba(20,20,20,0.7);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+}
+
+nav a {
+    color: #ccc;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #00c3ff;
+}
+
+/* SEKCJE */
+section {
+    padding: 100px 20px;
     text-align: center;
-    padding: 60px 20px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
 }
 
-header h1 {
-    font-size: 42px;
-    margin-bottom: 10px;
+section.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-header p {
-    color: #aaa;
+/* HERO */
+#home h1 {
+    font-size: 48px;
+    background: linear-gradient(90deg, #00c3ff, #0066ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* CONTAINER */
+/* STORE */
 .container {
     display: flex;
     justify-content: center;
-    gap: 25px;
-    padding: 40px;
+    gap: 30px;
     flex-wrap: wrap;
 }
 
 /* CARD */
 .card {
-    background: #151515;
+    background: rgba(20,20,20,0.7);
     padding: 25px;
-    border-radius: 20px; /* ZAOKRĄGLONE ROGI */
+    border-radius: 20px;
     width: 260px;
-    text-align: center;
-    transition: 0.3s;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: 0.4s;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.card.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .card:hover {
-    transform: translateY(-10px) scale(1.03); /* SMOOTH ANIMACJA */
-}
-
-/* PRICE */
-.price {
-    font-size: 22px;
-    margin: 15px 0;
+    transform: translateY(-12px) scale(1.05);
+    box-shadow: 0 0 25px rgba(0,195,255,0.4);
 }
 
 /* BUTTON */
@@ -68,21 +98,41 @@ button {
     background: linear-gradient(135deg, #00c3ff, #0066ff);
     border: none;
     padding: 12px 20px;
-    border-radius: 12px; /* ZAOKRĄGLONE */
-    cursor: pointer;
+    border-radius: 12px;
     color: white;
+    cursor: pointer;
     transition: 0.3s;
 }
 
 button:hover {
-    opacity: 0.8;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #00c3ff;
 }
 
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 20px;
-    color: #666;
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #111;
+    padding: 30px;
+    border-radius: 15px;
+    width: 300px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
 }
 </style>
 
@@ -90,39 +140,88 @@ footer {
 
 <body>
 
-<header>
-    <h1>Digital Store</h1>
-    <p>Premium products</p>
-</header>
+<nav>
+    <a href="#home">Home</a>
+    <a href="#store">Store</a>
+    <a onclick="openLogin()">Login</a>
+    <a href="https://discord.gg/uBkNEQKHX" target="_blank">Discord</a>
+</nav>
 
-<div class="container">
+<section id="home">
+    <h1>Premium Digital Store</h1>
+    <p>Najlepsze produkty cyfrowe 🔥</p>
+</section>
 
-    <div class="card">
-        <h2>Basic Pack</h2>
-        <p class="price">$9.99</p>
-        <p>Starter package</p>
-        <button>Kup teraz</button>
+<section id="store">
+    <h1>Store</h1>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Basic Pack</h2>
+            <p>$9.99</p>
+            <button>Kup teraz</button>
+        </div>
+
+        <div class="card">
+            <h2>Pro Pack</h2>
+            <p>$19.99</p>
+            <button>Kup teraz</button>
+        </div>
+
+        <div class="card">
+            <h2>Premium Pack</h2>
+            <p>$29.99</p>
+            <button>Kup teraz</button>
+        </div>
+
     </div>
+</section>
 
-    <div class="card">
-        <h2>Pro Pack</h2>
-        <p class="price">$19.99</p>
-        <p>Advanced tools</p>
-        <button>Kup teraz</button>
+<!-- LOGIN -->
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <h2>Login</h2>
+        <input type="text" placeholder="Login">
+        <input type="password" placeholder="Hasło">
+        <button onclick="closeLogin()">Zaloguj</button>
     </div>
-
-    <div class="card">
-        <h2>Premium Pack</h2>
-        <p class="price">$29.99</p>
-        <p>All features</p>
-        <button>Kup teraz</button>
-    </div>
-
 </div>
 
-<footer>
-    © 2026 Digital Store
-</footer>
+<script>
+// LOGIN
+function openLogin() {
+    document.getElementById("loginModal").style.display = "flex";
+}
+function closeLogin() {
+    document.getElementById("loginModal").style.display = "none";
+}
+
+// ANIMACJE SCROLL
+const sections = document.querySelectorAll("section");
+const cards = document.querySelectorAll(".card");
+
+window.addEventListener("scroll", () => {
+    const trigger = window.innerHeight * 0.85;
+
+    sections.forEach(sec => {
+        if (sec.getBoundingClientRect().top < trigger) {
+            sec.classList.add("show");
+        }
+    });
+
+    cards.forEach(card => {
+        if (card.getBoundingClientRect().top < trigger) {
+            card.classList.add("show");
+        }
+    });
+});
+
+// START ANIMACJI NA WEJŚCIU
+window.onload = () => {
+    document.querySelector("#home").classList.add("show");
+};
+</script>
 
 </body>
 </html>
