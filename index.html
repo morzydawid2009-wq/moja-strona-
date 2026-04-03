@@ -296,16 +296,15 @@ const cursor = document.getElementById('cursor');
 let lastTime = 0;
 
 document.addEventListener('mousemove', e => {
-    // Kursor
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
 
-    // Pokazuje normalny systemowy kursor na buttonach i linkach
+    // Poprawne ukrywanie kursora na buttonach i linkach
     const el = document.elementFromPoint(e.clientX, e.clientY);
-    if(el.tagName === 'BUTTON' || el.tagName === 'A') {
-        cursor.style.display = 'none'; // ukrywa custom
+    if(el && el.closest('button, a')) {
+        cursor.style.display = 'none';
     } else {
-        cursor.style.display = 'block'; // pokazuje custom
+        cursor.style.display = 'block';
     }
 
     // Limit cząsteczek
@@ -313,20 +312,16 @@ document.addEventListener('mousemove', e => {
     if (now - lastTime < 30) return;
     lastTime = now;
 
-    // Particle
     const p = document.createElement('div');
     p.className = 'particle';
     p.style.left = e.clientX + 'px';
     p.style.top = e.clientY + 'px';
-
     const dx = (Math.random() - 0.5) * 120 + 'px';
     const dy = (Math.random() - 0.5) * 120 + 'px';
-
     p.style.setProperty('--dx', dx);
     p.style.setProperty('--dy', dy);
 
     document.body.appendChild(p);
-
     setTimeout(() => p.remove(), 600);
 });
 
