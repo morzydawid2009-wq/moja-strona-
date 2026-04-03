@@ -109,7 +109,6 @@ button:hover {
     display: none;
     position: relative;
     z-index: 2;
-    padding: 60px 20px;
 }
 
 /* Wyśrodkowanie tylko dla home */
@@ -120,7 +119,11 @@ button:hover {
     height: calc(100vh - 60px); /* minus navbar */
 }
 
-.active {
+.active.home-page {
+    display: flex;
+}
+
+.active.store-page {
     display: block;
 }
 
@@ -186,7 +189,7 @@ button:hover {
     </div>
 </div>
 
-<div id="store" class="page">
+<div id="store" class="page store-page">
     <h1>OUR PRODUCTS</h1>
 
     <div class="container">
@@ -243,9 +246,18 @@ z-index: 5;
 
 <script>
 function showPage(page) {
-    document.getElementById("home").classList.remove("active");
-    document.getElementById("store").classList.remove("active");
-    document.getElementById(page).classList.add("active");
+    const home = document.getElementById('home');
+    const store = document.getElementById('store');
+
+    if (page === 'home') {
+        home.classList.add('active');
+        home.classList.add('home-page');
+        store.classList.remove('active');
+    } else if (page === 'store') {
+        store.classList.add('active');
+        store.classList.add('store-page');
+        home.classList.remove('active');
+    }
 }
 
 function openBuy(name, price) {
