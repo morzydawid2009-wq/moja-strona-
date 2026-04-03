@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Store</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+body {
+    background: #0d0d0d;
+    color: white;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+header h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #aaa;
+}
+
+/* CONTAINER */
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+/* CARD */
+.card {
+    background: #151515;
+    padding: 25px;
+    border-radius: 20px; /* ZAOKRĄGLONE ROGI */
+    width: 260px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.03); /* SMOOTH ANIMACJA */
+}
+
+/* PRICE */
+.price {
+    font-size: 22px;
+    margin: 15px 0;
+}
+
+/* BUTTON */
+button {
+    background: linear-gradient(135deg, #00c3ff, #0066ff);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px; /* ZAOKRĄGLONE */
+    cursor: pointer;
+    color: white;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>Digital Store</h1>
+    <p>Premium products</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Basic Pack</h2>
+        <p class="price">$9.99</p>
+        <p>Starter package</p>
+        <button>Kup teraz</button>
+    </div>
+
+    <div class="card">
+        <h2>Pro Pack</h2>
+        <p class="price">$19.99</p>
+        <p>Advanced tools</p>
+        <button>Kup teraz</button>
+    </div>
+
+    <div class="card">
+        <h2>Premium Pack</h2>
+        <p class="price">$29.99</p>
+        <p>All features</p>
+        <button>Kup teraz</button>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Digital Store
+</footer>
+
+</body>
+</html>
