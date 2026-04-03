@@ -137,21 +137,6 @@ button:hover {
     text-align: center;
 }
 
-/* Logo GameSense */
-.home-page .panel img {
-    max-width: 180px;
-    margin-bottom: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
 /* STORE */
 .container {
     display: flex;
@@ -170,6 +155,7 @@ button:hover {
     transition: 0.3s;
     backdrop-filter: blur(8px);
     border: 2px solid #00c3ff;
+    text-align: center;
 }
 
 .card:hover {
@@ -208,6 +194,21 @@ button:hover {
     border-radius:12px;
     text-align:center;
     width:300px;
+}
+
+/* LOGO PRODUKTU */
+.product-logo {
+    width: 100%;
+    max-width: 160px;
+    display: block;
+    margin: 0 auto 15px;
+    filter: drop-shadow(0 0 10px #00c3ff);
+    transition: 0.3s;
+}
+
+.product-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px #00c3ff);
 }
 
 /* KURSOR I CZĄSTECZKI */
@@ -263,8 +264,6 @@ button:hover {
 
 <div id="home" class="page home-page showing">
     <div class="panel">
-        <!-- LOGO GameSense -->
-        <img src="https://gamesense.gg/cdn/shop/files/gamesense-logo_PNG_9316ec1d-7a16-4f57-ad96-e8c1d1a67711_1200x1200.png?v=1631953877" alt="GameSense Logo">
         <h1>CS2 PREMIUM CHEATS</h1>
         <p>UNDETECTED • SMOOTH • HIGH PERFORMANCE</p>
         <p style="color:#00ff88;">● STATUS: UNDETECTED</p>
@@ -276,6 +275,10 @@ button:hover {
 
     <div class="container">
         <div class="card">
+            <!-- LOGO GameSense nad pierwszym produktem -->
+            <img src="https://gamesense.gg/cdn/shop/files/gamesense-logo_PNG_9316ec1d-7a16-4f57-ad96-e8c1d1a67711_1200x1200.png?v=1631953877" 
+                 alt="GameSense Logo" 
+                 class="product-logo">
             <h2>GAMESENSE RELEASE</h2>
             <p class="price">$2.00</p>
             <button class="buy" onclick="window.open('https://buy.stripe.com/test_9B6cN50UcaCN6JS7bW0co00')">BUY</button>
@@ -317,7 +320,6 @@ document.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
 
-    // Pokazuje normalny kursor na przyciskach i linkach
     const el = document.elementFromPoint(e.clientX, e.clientY);
     if(el && el.closest('button, a')) {
         cursor.style.display = 'none';
@@ -325,7 +327,6 @@ document.addEventListener('mousemove', e => {
         cursor.style.display = 'block';
     }
 
-    // Limit cząsteczek
     const now = Date.now();
     if (now - lastTime < 30) return;
     lastTime = now;
