@@ -109,14 +109,19 @@ button:hover {
     display: none;
     position: relative;
     z-index: 2;
-    height: 100vh; /* pełna wysokość ekranu */
+    padding: 60px 20px;
+}
+
+/* Wyśrodkowanie tylko dla home */
+.home-page {
     display: flex;
-    justify-content: center; /* poziome wyśrodkowanie */
-    align-items: center;     /* pionowe wyśrodkowanie */
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px); /* minus navbar */
 }
 
 .active {
-    display: flex;
+    display: block;
 }
 
 /* STORE */
@@ -173,7 +178,7 @@ button:hover {
     </div>
 </nav>
 
-<div id="home" class="page active">
+<div id="home" class="page home-page active">
     <div class="panel">
         <h1>CS2 PREMIUM CHEATS</h1>
         <p>UNDETECTED • SMOOTH • HIGH PERFORMANCE</p>
