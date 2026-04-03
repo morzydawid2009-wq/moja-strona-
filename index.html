@@ -12,7 +12,7 @@ body {
     background: #0d0d0d;
     color: white;
     overflow-x: hidden;
-    cursor: none; /* ukrywa standardowy kursor */
+    cursor: none;
 }
 
 /* TŁO */
@@ -105,6 +105,10 @@ button:hover {
     color: white;
 }
 
+#langBtn {
+    margin-right: 10px;
+}
+
 /* STRONY Z PŁYNNYM PRZEJŚCIEM */
 .page {
     position: absolute;
@@ -128,8 +132,8 @@ button:hover {
 /* Wyśrodkowanie panelu home */
 .home-page {
     display: flex;
-    justify-content: center; /* poziomo */
-    align-items: center;     /* pionowo */
+    justify-content: center;
+    align-items: center;
 }
 
 .home-page .panel {
@@ -157,8 +161,8 @@ button:hover {
 }
 
 .card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 0 20px #00c3ff;
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 0 25px #00c3ff;
 }
 
 .price {
@@ -170,6 +174,12 @@ button:hover {
     color: black;
     border: 2px solid #0066ff;
     font-size: 10px;
+    transition: 0.3s;
+}
+
+.buy:hover {
+    box-shadow: 0 0 15px #00c3ff, 0 0 30px #00c3ff inset;
+    transform: scale(1.05);
 }
 
 /* BUY BOX */
@@ -240,10 +250,7 @@ button:hover {
 
     <div>
         <button id="langBtn" onclick="toggleLang()">RU</button>
-
-        <button class="discord" onclick="window.open('https://discord.gg/uBkNEQKHX')">
-            DISCORD
-        </button>
+        <button class="discord" onclick="window.open('https://discord.gg/uBkNEQKHX')">DISCORD</button>
     </div>
 </nav>
 
@@ -257,24 +264,21 @@ button:hover {
 
 <div id="store" class="page store-page">
     <h1>НАШИ ПРОДУКТЫ</h1>
-
     <div class="container">
         <div class="card">
             <h2>GAMESENSE RELEASE</h2>
             <p class="price">$2.00</p>
-            <button class="buy" onclick="window.open('https://buy.stripe.com/test_9B6cN50UcaCN6JS7bW0co00')">BUY</button>
+            <button class="buy" onclick="openBuy('Gamesense Release', '$2.00')">КУПИТЬ</button>
         </div>
-
         <div class="card">
             <h2>PRO</h2>
             <p class="price">$19.99</p>
-            <button class="buy" onclick="openBuy('Pro', '$19.99')">BUY</button>
+            <button class="buy" onclick="openBuy('Pro', '$19.99')">КУПИТЬ</button>
         </div>
-
         <div class="card">
             <h2>PREMIUM</h2>
             <p class="price">$29.99</p>
-            <button class="buy" onclick="openBuy('Premium', '$29.99')">BUY</button>
+            <button class="buy" onclick="openBuy('Premium', '$29.99')">КУПИТЬ</button>
         </div>
     </div>
 </div>
@@ -283,14 +287,12 @@ button:hover {
     <div>
         <h2 id="productName"></h2>
         <p id="productPrice"></p>
-
-        <button onclick="buyNow()">BUY NOW</button>
+        <button id="buyNowBtn" onclick="buyNow()">КУПИТЬ СЕЙЧАС</button>
         <br><br>
-        <button onclick="closeBuy()">CANCEL</button>
+        <button onclick="closeBuy()">ОТМЕНИТЬ</button>
     </div>
 </div>
 
-<!-- CUSTOM CURSOR -->
 <div class="cursor" id="cursor"></div>
 
 <script>
@@ -298,16 +300,13 @@ const cursor = document.getElementById('cursor');
 let lastTime = 0;
 
 document.addEventListener('mousemove', e => {
-    // Kursor
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
 
-    // Limit cząsteczek
     const now = Date.now();
     if (now - lastTime < 30) return;
     lastTime = now;
 
-    // Particle
     const p = document.createElement('div');
     p.className = 'particle';
     p.style.left = e.clientX + 'px';
@@ -315,24 +314,16 @@ document.addEventListener('mousemove', e => {
 
     const dx = (Math.random() - 0.5) * 120 + 'px';
     const dy = (Math.random() - 0.5) * 120 + 'px';
-
     p.style.setProperty('--dx', dx);
     p.style.setProperty('--dy', dy);
 
     document.body.appendChild(p);
-
     setTimeout(() => p.remove(), 600);
 });
 
 function showPage(pageId) {
     const pages = document.querySelectorAll('.page');
-    pages.forEach(p => {
-        if (p.id === pageId) {
-            p.classList.add('showing');
-        } else {
-            p.classList.remove('showing');
-        }
-    });
+    pages.forEach(p => p.id === pageId ? p.classList.add('showing') : p.classList.remove('showing'));
 }
 
 function openBuy(name, price) {
@@ -361,11 +352,15 @@ function toggleLang() {
         document.querySelector("#home p").innerText = "UNDETECTED • SMOOTH • HIGH PERFORMANCE";
         document.querySelector("#home p:nth-of-type(2)").innerText = "● STATUS: UNDETECTED";
         document.querySelector("#store h1").innerText = "OUR PRODUCTS";
+        document.querySelectorAll('.buy').forEach(btn => btn.innerText = "BUY NOW");
+        document.getElementById("buyNowBtn").innerText = "BUY NOW";
     } else {
         document.querySelector("#home h1").innerText = "CS2 ПРЕМИУМ ЧИТЫ";
         document.querySelector("#home p").innerText = "НЕОБНАРУЖИМЫЕ • ПЛАВНЫЕ • ВЫСОКАЯ ПРОИЗВОДИТЕЛЬНОСТЬ";
         document.querySelector("#home p:nth-of-type(2)").innerText = "● СТАТУС: НЕ ОБНАРУЖЕНЫ";
         document.querySelector("#store h1").innerText = "НАШИ ПРОДУКТЫ";
+        document.querySelectorAll('.buy').forEach(btn => btn.innerText = "КУПИТЬ");
+        document.getElementById("buyNowBtn").innerText = "КУПИТЬ СЕЙЧАС";
     }
 }
 </script>
