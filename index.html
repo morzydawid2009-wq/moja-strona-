@@ -90,7 +90,7 @@ button {
     color: #00c3ff;
     font-family: 'Press Start 2P', monospace;
     font-size: 10px;
-    cursor: pointer;
+    cursor: pointer; /* pokaże systemowy cursor na przyciskach */
     transition: 0.2s;
 }
 
@@ -128,8 +128,8 @@ button:hover {
 /* Wyśrodkowanie panelu home */
 .home-page {
     display: flex;
-    justify-content: center; /* poziomo */
-    align-items: center;     /* pionowo */
+    justify-content: center;
+    align-items: center;
 }
 
 .home-page .panel {
@@ -299,6 +299,14 @@ document.addEventListener('mousemove', e => {
     // Kursor
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
+
+    // Pokazuje normalny systemowy kursor na buttonach i linkach
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    if(el.tagName === 'BUTTON' || el.tagName === 'A') {
+        cursor.style.display = 'none'; // ukrywa custom
+    } else {
+        cursor.style.display = 'block'; // pokazuje custom
+    }
 
     // Limit cząsteczek
     const now = Date.now();
