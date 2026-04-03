@@ -40,20 +40,30 @@ body {
 
 /* PANEL */
 .panel {
-    background: rgba(20,20,20,0.6);
-    border-radius: 20px;
-    padding: 40px;
-    width: 600px;
+    background: rgba(20,20,20,0.8);
+    border-radius: 12px;
+    padding: 50px;
+    width: 650px;
     margin: 80px auto;
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(0,195,255,0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0,195,255,0.4);
+    box-shadow: 0 0 30px rgba(0,195,255,0.4);
 }
 
 /* TEXT */
 h1 {
-    font-size: 40px;
-    text-shadow: 0 0 20px rgba(0,195,255,0.8);
+    font-size: 32px; /* Minecraft font jest mały, nie używaj 40px */
+    text-shadow: 0 0 10px #00c3ff;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+p {
+    font-size: 10px;
 }
 
 /* NAVBAR */
@@ -61,7 +71,7 @@ nav {
     display: flex;
     justify-content: space-between;
     padding: 15px 30px;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.8);
     backdrop-filter: blur(10px);
     position: relative;
     z-index: 2;
@@ -69,26 +79,31 @@ nav {
 
 .left {
     display: flex;
-    gap: 15px;
+    gap: 10px;
 }
 
 /* BUTTONY */
 button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 12px;
+    padding: 8px 12px;
+    border: 2px solid #00c3ff;
+    border-radius: 4px;
     background: #1a1a1a;
-    color: white;
+    color: #00c3ff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 button:hover {
     background: #00c3ff;
+    color: black;
 }
 
 .discord {
     background: linear-gradient(135deg, #5865F2, #404EED);
+    border: none;
+    color: white;
 }
 
 /* STRONY */
@@ -108,91 +123,88 @@ button:hover {
 .container {
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
 .card {
-    background: rgba(20,20,20,0.7);
-    padding: 25px;
-    border-radius: 20px;
-    width: 240px;
+    background: rgba(20,20,20,0.9);
+    padding: 20px;
+    border-radius: 8px;
+    width: 220px;
     transition: 0.3s;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
+    border: 2px solid #00c3ff;
 }
 
 .card:hover {
-    transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 0 25px rgba(0,195,255,0.6);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 0 20px #00c3ff;
 }
 
 .price {
-    margin: 10px 0;
+    margin: 8px 0;
 }
 
 .buy {
-    background: linear-gradient(135deg, #00c3ff, #0066ff);
+    background: #00c3ff;
+    color: black;
+    border: 2px solid #0066ff;
+    font-size: 10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- TŁO -->
 <div class="background"></div>
 <div class="overlay"></div>
 
-<!-- NAV -->
 <nav>
     <div class="left">
-        <button onclick="showPage('home')">Home</button>
-        <button onclick="showPage('store')">Store</button>
+        <button onclick="showPage('home')">HOME</button>
+        <button onclick="showPage('store')">STORE</button>
     </div>
 
     <div>
         <button class="discord" onclick="window.open('https://discord.gg/uBkNEQKHX')">
-            Discord
+            DISCORD
         </button>
     </div>
 </nav>
 
-<!-- HOME -->
 <div id="home" class="page active">
     <div class="panel">
-        <h1>CS2 Premium Cheats</h1>
-        <p>Undetected • Smooth • High Performance</p>
-        <p style="color:#00ff88;">● Status: Undetected</p>
+        <h1>CS2 PREMIUM CHEATS</h1>
+        <p>UNDETECTED • SMOOTH • HIGH PERFORMANCE</p>
+        <p style="color:#00ff88;">● STATUS: UNDETECTED</p>
     </div>
 </div>
 
-<!-- STORE -->
 <div id="store" class="page">
-    <h1>Our Products</h1>
+    <h1>OUR PRODUCTS</h1>
 
     <div class="container">
-
         <div class="card">
-            <h2>Gamesense release</h2>
+            <h2>GAMESENSE RELEASE</h2>
             <p class="price">$2.00</p>
-            <button class="buy" onclick="window.open('https://buy.stripe.com/test_9B6cN50UcaCN6JS7bW0co00')">Buy</button>
+            <button class="buy" onclick="window.open('https://buy.stripe.com/test_9B6cN50UcaCN6JS7bW0co00')">BUY</button>
         </div>
 
         <div class="card">
-            <h2>Pro</h2>
+            <h2>PRO</h2>
             <p class="price">$19.99</p>
-            <button class="buy" onclick="openBuy('Pro', '$19.99')">Buy</button>
+            <button class="buy" onclick="openBuy('Pro', '$19.99')">BUY</button>
         </div>
 
         <div class="card">
-            <h2>Premium</h2>
+            <h2>PREMIUM</h2>
             <p class="price">$29.99</p>
-            <button class="buy" onclick="openBuy('Premium', '$29.99')">Buy</button>
+            <button class="buy" onclick="openBuy('Premium', '$29.99')">BUY</button>
         </div>
-
     </div>
 </div>
 
-<!-- BUY BOX -->
 <div id="buyBox" style="
 display:none;
 position:fixed;
@@ -209,7 +221,7 @@ z-index: 5;
     <div style="
     background:#111;
     padding:30px;
-    border-radius:20px;
+    border-radius:12px;
     text-align:center;
     width:300px;
     ">
@@ -217,9 +229,9 @@ z-index: 5;
         <h2 id="productName"></h2>
         <p id="productPrice"></p>
 
-        <button onclick="buyNow()">Buy Now</button>
+        <button onclick="buyNow()">BUY NOW</button>
         <br><br>
-        <button onclick="closeBuy()">Cancel</button>
+        <button onclick="closeBuy()">CANCEL</button>
 
     </div>
 </div>
