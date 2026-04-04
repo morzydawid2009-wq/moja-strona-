@@ -1,180 +1,350 @@
-<!DOCTYPE html> 
-<html> 
-<head> 
-<title>CS2 Store</title> 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CS2 Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Press Start 2P', monospace;
+            background: #0d0d0d;
+            color: white;
+            overflow-x: hidden;
+            cursor: none;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> 
+        /* TŁO */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e') center/cover no-repeat;
+            filter: blur(8px);
+            transform: scale(1.1);
+            z-index: -2;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: -1;
+        }
 
-<style> 
-body { margin: 0; font-family: 'Press Start 2P', monospace; background: #0d0d0d; color: white; overflow-x: hidden; cursor: none; } 
-/* TŁO */ 
-.background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e') center/cover no-repeat; filter: blur(8px); transform: scale(1.1); z-index: -2; } 
-.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: -1; } 
-/* PANEL */ 
-.panel { background: rgba(20,20,20,0.8); border-radius: 12px; padding: 50px; width: 650px; backdrop-filter: blur(10px); border: 2px solid rgba(0,195,255,0.4); box-shadow: 0 0 30px rgba(0,195,255,0.4); } 
-/* TEXT */ 
-h1 { font-size: 32px; text-shadow: 0 0 10px #00c3ff; margin-bottom: 20px; } 
-h2 { font-size: 18px; margin: 10px 0; } 
-p { font-size: 10px; } 
-/* NAVBAR */ 
-nav { display: flex; justify-content: space-between; padding: 15px 30px; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); position: relative; z-index: 2; } 
-.left { display: flex; gap: 10px; } 
-/* BUTTONY */ 
-button { padding: 8px 12px; border: 2px solid #00c3ff; border-radius: 4px; background: #1a1a1a; color: #00c3ff; font-family: 'Press Start 2P', monospace; font-size: 10px; cursor: pointer; transition: 0.2s; } 
-button:hover { background: #00c3ff; color: black; } 
-.discord { background: linear-gradient(135deg, #5865F2, #404EED); border: none; color: white; } 
-#langBtn { margin-right: 10px; } 
-/* STRONY Z PŁYNNYM PRZEJŚCIEM */ 
-.page { position: absolute; top: 60px; left: 0; width: 100%; min-height: calc(100vh - 60px); opacity: 0; transform: translateX(30px); pointer-events: none; transition: opacity 0.4s ease, transform 0.4s ease; } 
-.page.showing { opacity: 1; transform: translateX(0); pointer-events: auto; z-index: 2; } 
-/* Wyśrodkowanie panelu home */ 
-.home-page { display: flex; justify-content: center; align-items: center; } 
-.home-page .panel { margin: 0; } 
-/* STORE */ 
-.store-page h1 { padding-left: 30px; /* odsunięcie nagłówka od lewej */ } 
-.container { display: flex; justify-content: flex-start; flex-wrap: wrap; gap: 20px; padding-left: 30px; /* dopasowane do nagłówka */ margin-top: 20px; } 
-.card { background: rgba(20,20,20,0.9); padding: 20px; border-radius: 8px; width: 220px; transition: 0.3s; backdrop-filter: blur(8px); border: 2px solid #00c3ff; } 
-.card:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 0 25px #00c3ff; } 
-.price { margin: 8px 0; } 
-.buy { background: #00c3ff; color: black; border: 2px solid #0066ff; font-size: 10px; transition: 0.3s; } 
-.buy:hover { box-shadow: 0 0 15px #00c3ff, 0 0 30px #00c3ff inset; transform: scale(1.05); } 
-/* BUY BOX */ 
-#buyBox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index: 5; } 
-#buyBox div { background:#111; padding:30px; border-radius:12px; text-align:center; width:300px; } 
-/* KURSOR I CZĄSTECZKI */ 
-.cursor { position: fixed; width: 12px; height: 12px; background: #00c3ff; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 9999; box-shadow: 0 0 10px #00c3ff, 0 0 20px #00c3ff; } 
-.particle { position: fixed; width: 6px; height: 6px; background: #00ffdd; border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 1; box-shadow: 0 0 8px #00ffdd, 0 0 15px #00ffdd; animation: particleAnim 0.6s forwards; } 
-@keyframes particleAnim { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; } } 
-</style> 
-</head> 
+        /* PANEL */
+        .panel {
+            background: rgba(20,20,20,0.8);
+            border-radius: 12px;
+            padding: 50px;
+            width: 650px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(0,195,255,0.4);
+            box-shadow: 0 0 30px rgba(0,195,255,0.4);
+        }
 
-<body> 
+        /* TEXT */
+        h1 {
+            font-size: 32px;
+            text-shadow: 0 0 10px #00c3ff;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        p {
+            font-size: 10px;
+        }
 
-<div class="background"></div> 
-<div class="overlay"></div> 
+        /* NAVBAR */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 2;
+        }
+        .left {
+            display: flex;
+            gap: 10px;
+        }
 
-<nav> 
-<div class="left"> 
-<button onclick="showPage('home')">HOME</button> 
-<button onclick="showPage('store')">STORE</button> 
-</div> 
+        /* BUTTONY */
+        button {
+            padding: 8px 12px;
+            border: 2px solid #00c3ff;
+            border-radius: 4px;
+            background: #1a1a1a;
+            color: #00c3ff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #00c3ff;
+            color: black;
+        }
+        .discord {
+            background: linear-gradient(135deg, #5865F2, #404EED);
+            border: none;
+            color: white;
+        }
+        #langBtn {
+            margin-right: 10px;
+        }
 
-<div> 
-<button id="langBtn" onclick="toggleLang()">RU</button> 
-<button class="discord" onclick="window.open('https://discord.gg/uBkNEQKHX')">DISCORD</button> 
-</div> 
-</nav> 
+        /* STRONY Z PŁYNNYM PRZEJŚCIEM */
+        .page {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            min-height: calc(100vh - 60px);
+            opacity: 0;
+            transform: translateX(30px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .page.showing {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+            z-index: 2;
+        }
 
-<div id="home" class="page home-page showing"> 
-<div class="panel"> 
-<h1>CS2 ПРЕМИУМ ЧИТЫ</h1> 
-<p>НЕОБНАРУЖИМЫЕ • ПЛАВНЫЕ • ВЫСОКАЯ ПРОИЗВОДИТЕЛЬНОСТЬ</p> 
-<p style="color:#00ff88;">● СТАТУС: НЕ ОБНАРУЖЕНЫ</p> 
-</div> 
-</div> 
+        /* Wyśrodkowanie panelu home */
+        .home-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .home-page .panel {
+            margin: 0;
+        }
 
-<div id="store" class="page store-page"> 
-<h1>НАШИ ПРОДУКТЫ</h1> 
-<div class="container"> 
-<div class="card"> 
-<h2>GAMESENSE RELEASE</h2> 
-<p class="price">$2.00</p> 
-<button class="buy" onclick="openBuy('Gamesense Release', '$2.00')">КУПИТЬ</button> 
-</div> 
-<div class="card"> 
-<h2>PRO</h2> 
-<p class="price">$19.99</p> 
-<button class="buy" onclick="openBuy('Pro', '$19.99')">КУПИТЬ</button> 
-</div> 
-<div class="card"> 
-<h2>PREMIUM</h2> 
-<p class="price">$29.99</p> 
-<button class="buy" onclick="openBuy('Premium', '$29.99')">КУПИТЬ</button> 
-</div> 
-</div> 
-</div> 
+        /* STORE */
+        .store-page h1 {
+            padding-left: 30px;
+        }
+        .container {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-left: 30px;
+            margin-top: 20px;
+        }
+        .card {
+            background: rgba(20,20,20,0.9);
+            padding: 20px;
+            border-radius: 8px;
+            width: 220px;
+            transition: 0.3s;
+            backdrop-filter: blur(8px);
+            border: 2px solid #00c3ff;
+        }
+        .card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 0 25px #00c3ff;
+        }
+        .price {
+            margin: 8px 0;
+        }
+        .buy {
+            background: #00c3ff;
+            color: black;
+            border: 2px solid #0066ff;
+            font-size: 10px;
+            transition: 0.3s;
+        }
+        .buy:hover {
+            box-shadow: 0 0 15px #00c3ff, 0 0 30px #00c3ff inset;
+            transform: scale(1.05);
+        }
 
-<div id="buyBox"> 
-<div> 
-<h2 id="productName"></h2> 
-<p id="productPrice"></p> 
-<button id="buyNowBtn" onclick="buyNow()">КУПИТЬ СЕЙЧАС</button> 
-<br><br> 
-<button onclick="closeBuy()">ОТМЕНИТЬ</button> 
-</div> 
-</div> 
+        /* BUY BOX */
+        #buyBox {
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.8);
+            justify-content:center;
+            align-items:center;
+            z-index: 5;
+        }
+        #buyBox div {
+            background:#111;
+            padding:30px;
+            border-radius:12px;
+            text-align:center;
+            width:300px;
+        }
 
-<div class="cursor" id="cursor"></div> 
+        /* KURSOR I CZĄSTECZKI */
+        .cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: #00c3ff;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px #00c3ff, 0 0 20px #00c3ff;
+        }
+        .particle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #00ffdd;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 1;
+            box-shadow: 0 0 8px #00ffdd, 0 0 15px #00ffdd;
+            animation: particleAnim 0.6s forwards;
+        }
+        @keyframes particleAnim {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+        }
+    </style>
+</head>
 
-<script> 
-const cursor = document.getElementById('cursor'); 
-let lastTime = 0; 
+<body>
+    <div class="background"></div>
+    <div class="overlay"></div>
 
-document.addEventListener('mousemove', e => { 
-cursor.style.left = e.clientX + 'px'; 
-cursor.style.top = e.clientY + 'px'; 
+    <nav>
+        <div class="left">
+            <button onclick="showPage('home')">HOME</button>
+            <button onclick="showPage('store')">STORE</button>
+        </div>
+        <div>
+            <button id="langBtn" onclick="toggleLang()">RU</button>
+            <button class="discord" onclick="window.open('https://discord.gg/uBkNEQKHX')">DISCORD</button>
+        </div>
+    </nav>
 
-const now = Date.now(); 
-if (now - lastTime < 30) return; 
-lastTime = now; 
+    <div id="home" class="page home-page showing">
+        <div class="panel">
+            <h1>CS2 ПРЕМИУМ ЧИТЫ</h1>
+            <p>НЕОБНАРУЖИМЫЕ • ПЛАВНЫЕ • ВЫСОКАЯ ПРОИЗВОДИТЕЛЬНОСТЬ</p>
+            <p style="color:#00ff88;">● СТАТУС: НЕ ОБНАРУЖЕНЫ</p>
+        </div>
+    </div>
 
-const p = document.createElement('div'); 
-p.className = 'particle'; 
-p.style.left = e.clientX + 'px'; 
-p.style.top = e.clientY + 'px'; 
+    <div id="store" class="page store-page">
+        <h1>НАШИ ПРОДУКТЫ</h1>
+        <div class="container">
+            <div class="card">
+                <h2>GAMESENSE RELEASE</h2>
+                <p class="price">$2.00</p>
+                <button class="buy" onclick="openBuy('Gamesense Release', '$2.00')">КУПИТЬ</button>
+            </div>
+            <div class="card">
+                <h2>PRO</h2>
+                <p class="price">$19.99</p>
+                <button class="buy" onclick="openBuy('Pro', '$19.99')">КУПИТЬ</button>
+            </div>
+            <div class="card">
+                <h2>PREMIUM</h2>
+                <p class="price">$29.99</p>
+                <button class="buy" onclick="openBuy('Premium', '$29.99')">КУПИТЬ</button>
+            </div>
+        </div>
+    </div>
 
-const dx = (Math.random() - 0.5) * 120 + 'px'; 
-const dy = (Math.random() - 0.5) * 120 + 'px'; 
-p.style.setProperty('--dx', dx); 
-p.style.setProperty('--dy', dy); 
+    <div id="buyBox">
+        <div>
+            <h2 id="productName"></h2>
+            <p id="productPrice"></p>
+            <button id="buyNowBtn" onclick="buyNow()">КУПИТЬ СЕЙЧАС</button>
+            <br><br>
+            <button onclick="closeBuy()">ОТМЕНИТЬ</button>
+        </div>
+    </div>
 
-document.body.appendChild(p); 
-setTimeout(() => p.remove(), 600); 
-}); 
+    <div class="cursor" id="cursor"></div>
 
-function showPage(pageId) { 
-const pages = document.querySelectorAll('.page'); 
-pages.forEach(p => p.id === pageId ? p.classList.add('showing') : p.classList.remove('showing')); 
-} 
+    <script>
+        const cursor = document.getElementById('cursor');
+        let lastTime = 0;
 
-function openBuy(name, price) { 
-document.getElementById("buyBox").style.display = "flex"; 
-document.getElementById("productName").innerText = name; 
-document.getElementById("productPrice").innerText = price; 
-} 
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
 
-function closeBuy() { 
-document.getElementById("buyBox").style.display = "none"; 
-} 
+            const now = Date.now();
+            if (now - lastTime < 30) return;
+            lastTime = now;
 
-function buyNow() { 
-alert("Purchase successful (fake)"); 
-} 
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = e.clientX + 'px';
+            p.style.top = e.clientY + 'px';
 
-// LANGUAGE TOGGLE 
-let currentLang = "ru"; 
+            const dx = (Math.random() - 0.5) * 120 + 'px';
+            const dy = (Math.random() - 0.5) * 120 + 'px';
+            p.style.setProperty('--dx', dx);
+            p.style.setProperty('--dy', dy);
 
-function toggleLang() { 
-currentLang = currentLang === "ru" ? "en" : "ru"; 
-document.getElementById("langBtn").innerText = currentLang.toUpperCase(); 
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 600);
+        });
 
-if (currentLang === "en") { 
-document.querySelector("#home h1").innerText = "CS2 PREMIUM CHEATS"; 
-document.querySelector("#home p").innerText = "UNDETECTED • SMOOTH • HIGH PERFORMANCE"; 
-document.querySelector("#home p:nth-of-type(2)").innerText = "● STATUS: UNDETECTED"; 
-document.querySelector("#store h1").innerText = "OUR PRODUCTS"; 
-document.querySelectorAll('.buy').forEach(btn => btn.innerText = "BUY NOW"); 
-document.getElementById("buyNowBtn").innerText = "BUY NOW"; 
-} else { 
-document.querySelector("#home h1").innerText = "CS2 ПРЕМИУМ ЧИТЫ"; 
-document.querySelector("#home p").innerText = "НЕОБНАРУЖИМЫЕ • ПЛАВНЫЕ • ВЫСОКАЯ ПРОИЗВОДИТЕЛЬНОСТЬ"; 
-document.querySelector("#home p:nth-of-type(2)").innerText = "● СТАТУС: НЕ ОБНАРУЖЕНЫ"; 
-document.querySelector("#store h1").innerText = "НАШИ ПРОДУКТЫ"; 
-document.querySelectorAll('.buy').forEach(btn => btn.innerText = "КУПИТЬ"); 
-document.getElementById("buyNowBtn").innerText = "КУПИТЬ СЕЙЧАС"; 
-} 
-} 
-</script> 
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.id === pageId ? p.classList.add('showing') : p.classList.remove('showing'));
+        }
 
-</body> 
+        function openBuy(name, price) {
+            document.getElementById("buyBox").style.display = "flex";
+            document.getElementById("productName").innerText = name;
+            document.getElementById("productPrice").innerText = price;
+        }
+
+        function closeBuy() {
+            document.getElementById("buyBox").style.display = "none";
+        }
+
+        function buyNow() {
+            alert("Purchase successful (fake)");
+        }
+
+        // LANGUAGE TOGGLE
+        let currentLang = "ru";
+
+        function toggleLang() {
+            currentLang = currentLang === "ru" ? "en" : "ru";
+            document.getElementById("langBtn").innerText = currentLang.toUpperCase();
+
+            if (currentLang === "en") {
+                document.querySelector("#home h1").innerText = "CS2 PREMIUM CHEATS";
+                document.querySelector("#home p").innerText = "UNDETECTED • SMOOTH • HIGH PERFORMANCE";
+                document.querySelector("#home p:nth-of-type(2)").innerText = "● STATUS: UNDETECTED";
+                document.querySelector("#store h1").innerText = "OUR PRODUCTS";
+                document.querySelectorAll('.buy').forEach(btn => btn.innerText = "BUY NOW");
+                document.getElementById("buyNowBtn").innerText = "BUY NOW";
+            } else {
+                document.querySelector("#home h1").innerText = "CS2 ПРЕМИУМ ЧИТЫ";
+                document.querySelector("#home p").innerText = "НЕОБНАРУЖИМЫЕ • ПЛАВНЫЕ • ВЫСОКАЯ ПРОИЗВОДИТЕЛЬНОСТЬ";
+                document.querySelector("#home p:nth-of-type(2)").innerText = "● СТАТУС: НЕ ОБНАРУЖЕНЫ";
+                document.querySelector("#store h1").innerText = "НАШИ ПРОДУКТЫ";
+                document.querySelectorAll('.buy').forEach(btn => btn.innerText = "КУПИТЬ");
+                document.getElementById("buyNowBtn").innerText = "КУПИТЬ СЕЙЧАС";
+            }
+        }
+    </script>
+</body>
 </html>
